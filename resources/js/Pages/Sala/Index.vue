@@ -42,7 +42,7 @@ const classMsj = ref('hidden');
 
 const openModalView = (sala)=>{
     // showModalView.value = true;
-    
+    console.log('openModalView ==> ', sala, sala.code_sala);
     Inertia.visit(route('diagram_class.index'), {
     data: {
         // Aquí pones los datos que deseas enviar
@@ -166,7 +166,7 @@ const updateSelectedOptions=()=>{
 
 const deleteAuthor = () =>{
   form.delete(route('salas.destroy',v.value.id),{
-    onSuccess: () => { 
+    onSuccess: () => {
         ok('Sala Eliminada !!!');
         get_salas();
     }
@@ -200,10 +200,10 @@ const watchGuestId = watch(
 
 <template>
 	<Head title="Salas" />
-	
+
 	<AuthenticatedLayout>
 		<template #header>
-			Salas 
+			Salas
             <darkButton @click="openModalForm(1)" v-if="user.type_user == 1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
@@ -215,16 +215,16 @@ const watchGuestId = watch(
                 </svg>
             </darkButton>
 		</template>
-		
+
 		<div class="w-full overflow-hidden rounded-lg border shadow-md">
-            
+
 			<div class="inline-flex overflow-hidden mb-4 w-full bg-white rounded-lg shadow-md" :class="classMsj">
 				<div class="flex justify-center items-center w-12 bg-green-500">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
 				</div>
-				
+
 				<div class="px-4 py-2 -mx-3">
 					<div class="mx-3">
 						<span class="font-semibold text-green-500">success</span>
@@ -314,7 +314,7 @@ const watchGuestId = watch(
                 <secondaryButton @click="closeModal">Cancelar</secondaryButton>
             </div>
         </Modal>
-        
+
         <Modal :show="showModalForm" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">{{ tittle }}</h2>
@@ -325,7 +325,7 @@ const watchGuestId = watch(
                         </svg>
                     </InputGroup>
                     <InputError class="mt-1" :message="form.errors.name"></InputError>
-                    
+
                     <InputGroup :text="'Código de Sala'" :required="'required'" v-model="form.code_sala" :type="'text'">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.242 5.992h12m-12 6.003H20.24m-12 5.999h12M4.117 7.495v-3.75H2.99m1.125 3.75H2.99m1.125 0H5.24m-1.92 2.577a1.125 1.125 0 1 1 1.591 1.59l-1.83 1.83h2.16M2.99 15.745h1.125a1.125 1.125 0 0 1 0 2.25H3.74m0-.002h.375a1.125 1.125 0 0 1 0 2.25H2.99" />
@@ -337,7 +337,7 @@ const watchGuestId = watch(
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
                         </svg>
                     </SelectInput>
-                    
+
                     <div class="w-full overflow-hidden rounded-lg border shadow-md">
                         <div class="w-full overflow-x-auto bg-white">
                             <table class="w-full whitespace-no-wrap">
@@ -383,14 +383,14 @@ const watchGuestId = watch(
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">{{ tittle }}</h2>
                 <div class="mt-6 mb-6 space-y-6 max-w-xl">
-                    
+
                     <InputGroup :text="'Ingrese Código de Sala'" :required="'required'" v-model="form.code_sala" :type="'text'">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.242 5.992h12m-12 6.003H20.24m-12 5.999h12M4.117 7.495v-3.75H2.99m1.125 3.75H2.99m1.125 0H5.24m-1.92 2.577a1.125 1.125 0 1 1 1.591 1.59l-1.83 1.83h2.16M2.99 15.745h1.125a1.125 1.125 0 0 1 0 2.25H3.74m0-.002h.375a1.125 1.125 0 0 1 0 2.25H2.99" />
                         </svg>
                     </InputGroup>
                     <InputError class="mt-1" :message="form.errors.code_sala"></InputError>
-                    
+
                     <PrimaryButton @click="joinRoom">Save</PrimaryButton>
                 </div>
             </div>
