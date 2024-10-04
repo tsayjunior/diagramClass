@@ -10,7 +10,7 @@ import DarkButton from '@/Components/DarkButton.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputGroup from '@/Components/InputGroup.vue';
 import SelectInput from '@/Components/SelectInput.vue'
-import IndexDiagramComponent from './../DiagramClass/IndexDiagramComponent.vue'
+import IndexDiagramComponent from './IndexDiagramComponent.vue'
 import {ref, watch, useAttrs } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 
