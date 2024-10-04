@@ -37,7 +37,7 @@ class DiagramClassController extends Controller
         $user = User::find($user_auth->id);
         $user->code_sala_activate = $sala->code_sala;
         $user->save();
-        dd($user);
+        // dd($user);
         return Inertia::render('DiagramClass/IndexDiagram',
             [
                 'sala' => $sala,
