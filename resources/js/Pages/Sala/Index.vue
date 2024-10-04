@@ -10,6 +10,7 @@ import DarkButton from '@/Components/DarkButton.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputGroup from '@/Components/InputGroup.vue';
 import SelectInput from '@/Components/SelectInput.vue'
+import IndexDiagramComponent from './../DiagramClass/IndexDiagramComponent.vue'
 import {ref, watch, useAttrs } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 
@@ -39,26 +40,40 @@ const operation = ref(1);
 const msj = ref('');
 const classMsj = ref('hidden');
 
+const showDiagramador= ref(false);
+const dataDiagramador= ref({});
 
 const openModalView = (sala)=>{
     // showModalView.value = true;
     console.log('openModalView ==> ', sala, sala.code_sala);
-    Inertia.visit(route('diagram_class.index'), {
-    data: {
-        // Aquí pones los datos que deseas enviar
-        code_sala: sala.code_sala,
-        // Agrega más datos según sea necesario
-        },
-    });
-    // Enviar la solicitud POST solo con el payload
-    // axios.get(route('diagram_class.get_room'))
-    //     .then(response => {
-    //         // ok('Acabas de unirte a una sala con éxito!!!');
-    //         // get_salas();
-    //     })
-    //     .catch(errors => {
-    //         console.error(errors);
-    //     });
+    // Inertia.visit(route('diagram_class.index'), {
+    // data: {
+    //     // Aquí pones los datos que deseas enviar
+    //     code_sala: sala.code_sala,
+    //     // Agrega más datos según sea necesario
+    //     },
+    // });
+    data_open_modal_view(sala);
+
+}
+const data_open_modal_view = (sala) => {
+    console.log('////////////////////////////ingresa  a traer datos para diagramar //////////////');
+    const payload = {
+        code_sala: sala.code_sala, // Añade el dato adicional
+    };
+    axios.get(route('diagram_class.index_get'), {
+            params: payload
+        })
+        .then(response => {
+            showDiagramador.value = true;
+            dataDiagramador.value = response.data;
+            console.log(dataDiagramador.value);
+            console.log(dataDiagramador.value.sala);
+
+        })
+        .catch(errors => {
+            console.error(errors);
+        });
 }
 const openModalDelete = (sala)=>{
     showModalDelete.value = true;
@@ -225,8 +240,21 @@ const export_diagram = (sala) => {
 }
 
 </script>
-
 <template>
+<template v-if="showDiagramador">
+
+    <IndexDiagramComponent  
+        :user="dataDiagramador.user"
+        :sala="dataDiagramador.sala"
+        :array_node="dataDiagramador.array_node"
+        :array_links="dataDiagramador.array_links"
+        :array_links_intermedia="dataDiagramador.array_links_intermedia"
+        :positions="dataDiagramador.positions"
+    >
+        
+    </IndexDiagramComponent>
+</template>
+<template v-else>
 	<Head title="Salas" />
 
 	<AuthenticatedLayout>
@@ -446,4 +474,5 @@ const export_diagram = (sala) => {
             </div>
         </Modal>
 	</AuthenticatedLayout>
+</template>
 </template>

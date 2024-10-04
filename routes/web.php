@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('diagram_class')->group(function () {
         Route::get('indexD', [DiagramClassController::class, 'index'])->name('diagram_class.index');
+        Route::get('index_get', [DiagramClassController::class, 'index_get'])->name('diagram_class.index_get');
         Route::post('get_room', [DiagramClassController::class, 'getRoom'])->name('diagram_class.get_room');
         Route::get('sent_data', [DiagramClassController::class, 'sent_data'])->name('diagram_class.sent_data');
         Route::post('peticion_socket', [DiagramClassController::class, 'peticion_socket'])->name('diagram_class.peticion_socket');
