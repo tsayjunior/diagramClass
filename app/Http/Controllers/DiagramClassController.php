@@ -27,7 +27,7 @@ class DiagramClassController extends Controller
     public function index(Request $request)
     {
         // return Inertia::location(route('diagram_class.index'));
-        // dd($request->code_sala);
+        dd($request->code_sala);
         $claseController = new ClaseController();
         $array_node = $claseController->format_class_init($request->code_sala);
         $array_links = $claseController->format_relacions_init($request->code_sala);
