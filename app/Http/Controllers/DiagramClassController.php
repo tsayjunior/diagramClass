@@ -28,25 +28,29 @@ class DiagramClassController extends Controller
     {
         // return Inertia::location(route('diagram_class.index'));
         // dd($request->code_sala);
-        $claseController = new ClaseController();
-        $array_node = $claseController->format_class_init($request->code_sala);
-        $array_links = $claseController->format_relacions_init($request->code_sala);
-        $array_links_intermedia = $claseController->format_relacions_intermedia_init($request->code_sala);
-        $sala = Sala::where('code_sala', $request->code_sala)->first();
-        $user_auth = Auth::user();
-        $user = User::find($user_auth->id);
-        $user->code_sala_activate = $sala->code_sala;
-        $user->save();
-        // dd($user);
-        return Inertia::render('DiagramClass/IndexDiagram',
-            [
-                'sala' => $sala,
-                'user' => $user,
-                'array_node' => $array_node,
-                'array_links' => $array_links,
-                'array_links_intermedia' => $array_links_intermedia,
-            ]
-        );
+
+        // $claseController = new ClaseController();
+        // $array_node = $claseController->format_class_init($request->code_sala);
+        // $array_links = $claseController->format_relacions_init($request->code_sala);
+        // $array_links_intermedia = $claseController->format_relacions_intermedia_init($request->code_sala);
+        // $sala = Sala::where('code_sala', $request->code_sala)->first();
+        // $user_auth = Auth::user();
+        // $user = User::find($user_auth->id);
+        // $user->code_sala_activate = $sala->code_sala;
+        // $user->save();
+        // // dd($user);
+        // return Inertia::render('DiagramClass/IndexDiagram',
+        //     [
+        //         'sala' => $sala,
+        //         'user' => $user,
+        //         'array_node' => $array_node,
+        //         'array_links' => $array_links,
+        //         'array_links_intermedia' => $array_links_intermedia,
+        //     ]
+        // );
+        return Inertia::render('Users/Index', [
+            'users' => User::paginate()
+        ]);
     }
     public function sent_data(){
         // dd('ingresa');
