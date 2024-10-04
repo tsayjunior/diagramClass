@@ -9,6 +9,7 @@ use App\Models\Sala;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DiagramClassController extends Controller
@@ -116,5 +117,26 @@ class DiagramClassController extends Controller
     }
     public function create_class(Request $request){
 
+    }
+    public function download_diagram(Request $request){
+         // Define la estructura del archivo XMI
+         $attributeController = new AttributeController();
+         $xmiContent = $attributeController->create_xmi($request->code_sala);
+         // Crea el archivo .xmi en el storage (en la carpeta local "app")
+         $fileName = 'diagram.xmi';
+         $filePath = 'files/' . $fileName;
+ 
+         // Guarda el contenido en el archivo
+         Storage::put($filePath, $xmiContent);
+ 
+         // Verifica si el archivo se creó correctamente
+         if (!Storage::exists($filePath)) {
+             abort(404, 'No se pudo generar el archivo XMI.');
+         }
+ 
+         // Descarga el archivo .xmi generado
+         return Storage::download($filePath, $fileName, [
+             'Content-Type' => 'application/xml'
+         ]);
     }
 }

@@ -196,6 +196,34 @@ const watchGuestId = watch(
     }
   }
 );
+
+const export_diagram = (sala) => {
+    
+    const payload = {
+        code_sala: sala.code_sala, // Añade el dato adicional
+    };
+    axios.get(route('diagram_class.download_diagram'), {
+            params: payload
+        })
+        .then(response => {
+            ok('Descarga realizada con exito!!!');
+            console.log('/////////////// export_diagram //////////////////////');
+            console.log(response.data);
+            // Crear un enlace de descarga para el archivo
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'download-diagram.xmi'); // Nombre del archivo que se descargará
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link); // Remueve el enlace una vez se ha descargado
+        })
+        .catch(errors => {
+            console.error(errors);
+        });
+    
+}
+
 </script>
 
 <template>
@@ -279,6 +307,11 @@ const watchGuestId = watch(
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                     </svg>
                                 </DarkButton>
+                                <warningButton @click="export_diagram(sala)" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                </warningButton>
                             </td>
                             <!-- <td class="px-4 py-3 text-sm">
                                 <warningButton>

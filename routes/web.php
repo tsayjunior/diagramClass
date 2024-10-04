@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
         Route::get('sent_data', [DiagramClassController::class, 'sent_data'])->name('diagram_class.sent_data');
         Route::post('peticion_socket', [DiagramClassController::class, 'peticion_socket'])->name('diagram_class.peticion_socket');
         
+        Route::get('download-xmi', [DiagramClassController::class, 'download_diagram'])->name('diagram_class.download_diagram');
     });
     Route::prefix('clase')->group(function () {
         Route::get('get_id_key', [ClaseController::class, 'get_id_key'])->name('clase.get_id_key');
