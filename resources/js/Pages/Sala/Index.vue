@@ -46,14 +46,14 @@ const dataDiagramador= ref({});
 const openModalView = (sala)=>{
     // showModalView.value = true;
     console.log('openModalView ==> ', sala, sala.code_sala);
-    // Inertia.visit(route('diagram_class.index'), {
-    // data: {
-    //     // Aquí pones los datos que deseas enviar
-    //     code_sala: sala.code_sala,
-    //     // Agrega más datos según sea necesario
-    //     },
-    // });
-    data_open_modal_view(sala);
+    Inertia.visit(route('diagram_class.index'), {
+    data: {
+        // Aquí pones los datos que deseas enviar
+        code_sala: sala.code_sala,
+        // Agrega más datos según sea necesario
+        },
+    });
+    // data_open_modal_view(sala);
 
 }
 const data_open_modal_view = (sala) => {
